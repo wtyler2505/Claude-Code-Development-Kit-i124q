@@ -1,4 +1,4 @@
-# Claude Usage Guide for CCDK Kits 1–6
+# Claude Usage Guide for CCDK i124q Kits 1–6
 
 ## General conventions
 * **Slash‑commands** live in `.claude/commands/*.md`.

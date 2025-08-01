@@ -3,13 +3,13 @@
 # Claude Code Development Kit Remote Installer
 #
 # This script downloads and installs the Claude Code Development Kit
-# Usage: curl -fsSL https://raw.githubusercontent.com/username/repo/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/wtyler2505/Claude-Code-Development-Kit-i124q/main/install.sh | bash
 
 set -euo pipefail
 
 # Configuration
-REPO_OWNER="peterkrueck"
-REPO_NAME="Claude-Code-Development-Kit"
+REPO_OWNER="wtyler2505"
+REPO_NAME="Claude-Code-Development-Kit-i124q"
 BRANCH="main"
 
 # Colors for output
