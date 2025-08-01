@@ -207,13 +207,37 @@ detect_os() {
     print_color "$GREEN" "✓ Detected OS: $OS"
 }
 
+# Convert Windows path to Unix path if needed
+convert_windows_path() {
+    local path="$1"
+    # Remove quotes if present
+    path="${path%\"}"
+    path="${path#\"}"
+    
+    # Check if it's a Windows path (contains : or \)
+    if [[ "$path" =~ ^[A-Za-z]: ]] || [[ "$path" =~ \\ ]]; then
+        # Convert C:\path\to\dir to /c/path/to/dir
+        path=$(echo "$path" | sed -e 's/\\/\//g' -e 's/://' -e 's/^/\//' | tr '[:upper:]' '[:lower:]')
+    fi
+    
+    echo "$path"
+}
+
 # Get target directory
 get_target_directory() {
     echo
     print_color "$YELLOW" "Where would you like to install the Claude Code Development Kit?"
+    if [ -n "${WINDOWS_INSTALL:-}" ]; then
+        print_color "$CYAN" "Examples: . (current dir), /c/Users/wtyle/project, C:\\Users\\wtyle\\project"
+    fi
     local prompt="Enter target project directory (or . for current directory): "
     if ! safe_read input_dir "$prompt"; then
         exit 1
+    fi
+    
+    # Convert Windows paths if needed
+    if [ -n "${WINDOWS_INSTALL:-}" ]; then
+        input_dir=$(convert_windows_path "$input_dir")
     fi
     
     if [ "$input_dir" = "." ]; then
