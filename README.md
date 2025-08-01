@@ -1,4 +1,4 @@
-# Claude Code Development Kit
+# Claude Code Development Kit i124q
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Changelog](https://img.shields.io/badge/changelog-v2.1.0-orange.svg)](CHANGELOG.md)
@@ -103,7 +103,7 @@ Claude Code's output quality directly depends on what it knows about your projec
 Run this single command in your terminal:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/peterkrueck/Claude-Code-Development-Kit/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/wtyler2505/Claude-Code-Development-Kit-i124q/main/install.sh | bash
 ```
 
 This will:
@@ -119,8 +119,8 @@ https://github.com/user-attachments/assets/0b4a1e69-bddb-4b58-8de9-35f97919bf44
 #### Option 2: Clone and Install
 
 ```bash
-git clone https://github.com/peterkrueck/Claude-Code-Development-Kit.git
-cd Claude-Code-Development-Kit
+git clone https://github.com/wtyler2505/Claude-Code-Development-Kit-i124q.git
+cd Claude-Code-Development-Kit-i124q
 ./setup.sh
 ```
 

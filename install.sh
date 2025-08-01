@@ -3,13 +3,13 @@
 # Claude Code Development Kit Remote Installer
 #
 # This script downloads and installs the Claude Code Development Kit
-# Usage: curl -fsSL https://raw.githubusercontent.com/username/repo/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/wtyler2505/Claude-Code-Development-Kit-i124q/main/install.sh | bash
 
 set -euo pipefail
 
 # Configuration
-REPO_OWNER="peterkrueck"
-REPO_NAME="Claude-Code-Development-Kit"
+REPO_OWNER="wtyler2505"
+REPO_NAME="Claude-Code-Development-Kit-i124q"
 BRANCH="main"
 
 # Colors for output
@@ -184,8 +184,17 @@ print_color "$CYAN" "🔧 Starting framework setup..."
 print_color "$CYAN" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo
 
-# Run the actual setup script, passing original directory via environment variable
-if ! INSTALLER_ORIGINAL_PWD="$ORIGINAL_PWD" ./setup.sh "$@"; then
+# Check if running on Windows (Git Bash/MSYS)
+if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]] || [[ -n "$WINDIR" ]]; then
+    # Windows detected - pass flag to setup script
+    INSTALLER_ORIGINAL_PWD="$ORIGINAL_PWD" WINDOWS_INSTALL=1 ./setup.sh "$@"
+else
+    # Non-Windows system
+    INSTALLER_ORIGINAL_PWD="$ORIGINAL_PWD" ./setup.sh "$@"
+fi
+
+# Check if setup succeeded
+if [ $? -ne 0 ]; then
     echo
     print_color "$RED" "❌ Setup failed"
     print_color "$YELLOW" "You can try manual installation:"
