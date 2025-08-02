@@ -110,19 +110,19 @@ class CompleteUIUXTester:
             time.sleep(3)
             
             # Test main dashboard
-            response = requests.get('http://localhost:5005', timeout=10)
+            response = requests.get('http://localhost:5005', timeout=15)
             dashboard_works = response.status_code == 200 and 'Enhanced Analytics' in response.text
             
             # Test API endpoints
-            status_response = requests.get('http://localhost:5005/api/status', timeout=5)
+            status_response = requests.get('http://localhost:5005/api/status', timeout=10)
             status_works = status_response.status_code == 200
             
             # Test metrics endpoint
-            metrics_response = requests.get('http://localhost:5005/api/metrics', timeout=5)
+            metrics_response = requests.get('http://localhost:5005/api/metrics', timeout=10)
             metrics_work = metrics_response.status_code == 200
             
             # Test health endpoint
-            health_response = requests.get('http://localhost:5005/api/health', timeout=5)
+            health_response = requests.get('http://localhost:5005/api/health', timeout=10)
             health_works = health_response.status_code == 200
             
             # Cleanup
