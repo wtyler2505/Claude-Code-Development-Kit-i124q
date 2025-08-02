@@ -19,6 +19,22 @@ REPO_NAME="Claude-Code-Development-Kit-i124q"
 BRANCH="main"
 VERSION="3.0.0"
 
+# Colors for output (define early for error messages)
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+NC='\033[0m' # No Color
+
+# Print colored output
+print_color() {
+    local color=$1
+    shift
+    echo -e "${color}$@${NC}"
+}
+
 # Parse command line arguments
 FORCE_INSTALL=false
 SKIP_CHECKS=false
@@ -67,22 +83,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-# Colors for output
-BLUE='\033[0;34m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
-CYAN='\033[0;36m'
-MAGENTA='\033[0;35m'
-NC='\033[0m' # No Color
-
-# Print colored output
-print_color() {
-    local color=$1
-    shift
-    echo -e "${color}$@${NC}"
-}
 
 # Check for existing CCDK installation
 check_existing_installation() {
