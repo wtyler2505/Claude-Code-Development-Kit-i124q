@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "sessionStart": [
+      "./.claude/hooks/session-start-persist.ts",
+      "./.claude/hooks/session-start-load-memory.ts"
+    ],
+    "sessionEnd": [
+      "./.claude/hooks/session-end-save-memory.ts"
+    ],
+    "postTask": [
+      "./.claude/hooks/post-task-summary.ts"
+    ],
+    "preCompact": [
+      "./.claude/hooks/pre-compact-summary.ts"
+    ],
+    "subagentStop": [
+      "./.claude/hooks/subagent-stop-notify.ts"
+    ],
+    "postToolUse": [
+      "./.claude/hooks/post-tool-lint.ts",
+      "./.claude/hooks/postToolUse-streamInject.ts"
+    ],
+    "postEdit": [
+      "./.claude/hooks/postEdit-ci.ts"
+    ]
+  }
+}

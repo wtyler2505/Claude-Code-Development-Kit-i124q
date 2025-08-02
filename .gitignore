@@ -1,6 +1,6 @@
 # Claude Code specific files
 /CLAUDE.md
-.claude/
+# .claude/  # COMMENTED OUT - We want to track the .claude directory for CCDK i124q
 .gitignore
 
 # Logs

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "mcp__clear-thought__sequentialthinking",
+      "mcp__desktop-commander__list_directory",
+      "mcp__desktop-commander__read_multiple_files",
+      "mcp__desktop-commander__read_file",
+      "mcp__desktop-commander__search_code",
+      "mcp__memory__create_entities"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\wtyle",
+      "\\users\\wtyle\\rovermissioncontrol",
+      "\\users\\wtyle\\SuperClaude_Framework",
+      "\\users\\wtyle"
+    ]
+  }
+}
