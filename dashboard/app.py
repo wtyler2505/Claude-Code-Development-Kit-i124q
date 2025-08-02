@@ -23,7 +23,7 @@ def index():
     if base.exists():
         for d in base.iterdir():
             if (d/'memory.db').exists():
-                c = sqlite3.connect(d/'memory.db').execute('select count(*) from memory').fetchone()[0]
+                c = sqlite3.connect(d/'memory.db').execute('select count(*) from notes').fetchone()[0]
                 sessions.append((d.name,c))
     log=''
     if pathlib.Path('.ccd_analytics.log').exists():
