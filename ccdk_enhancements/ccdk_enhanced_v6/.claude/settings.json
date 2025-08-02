@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "postToolUse": [
+      "./.claude/hooks/postToolUse-streamInject.ts"
+    ]
+  }
+}

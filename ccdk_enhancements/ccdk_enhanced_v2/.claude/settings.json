@@ -1,0 +1,13 @@
+{
+  "hooks": {
+    "preCompact": [
+      "./.claude/hooks/pre-compact-summary.ts"
+    ],
+    "subagentStop": [
+      "./.claude/hooks/subagent-stop-notify.ts"
+    ],
+    "postToolUse": [
+      "./.claude/hooks/post-tool-lint.ts"
+    ]
+  }
+}

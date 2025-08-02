@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "postToolUse": [
+      "./.claude/hooks/postToolUse-analytics.ts"
+    ],
+    "notification": [
+      "./.claude/hooks/notification-tts.ts"
+    ]
+  }
+}

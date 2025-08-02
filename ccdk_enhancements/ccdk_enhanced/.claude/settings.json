@@ -1,0 +1,13 @@
+{
+  "hooks": {
+    "sessionStart": [
+      "./.claude/hooks/session-start-persist.ts"
+    ],
+    "postTask": [
+      "./.claude/hooks/post-task-summary.ts"
+    ],
+    "preSearch": [
+      "./.claude/hooks/pre-search-logger.ts"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "sessionStart": [
+      "./.claude/hooks/session-start-load-memory.ts"
+    ],
+    "sessionEnd": [
+      "./.claude/hooks/session-end-save-memory.ts"
+    ]
+  }
+}

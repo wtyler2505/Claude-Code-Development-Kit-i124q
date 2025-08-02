@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "postEdit": [
+      "./.claude/hooks/postEdit-ci.ts"
+    ]
+  }
+}
