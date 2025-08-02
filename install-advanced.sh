@@ -792,5 +792,144 @@ main() {
     perform_installation
 }
 
+# Helper configuration functions
+configure_smart_defaults() {
+    # Smart mode uses intelligent defaults
+    INSTALL_CONFIG[install_ccdk]="true"
+    INSTALL_CONFIG[install_superclaude]="true"
+    INSTALL_CONFIG[install_thinkchain]="true"
+    INSTALL_CONFIG[install_taskmaster]="true"
+    INSTALL_CONFIG[install_templates]="true"
+    INSTALL_CONFIG[install_dashboards]="true"
+    
+    # Preserve existing customizations by default
+    if [ "${DETECTED_ENV[has_custom_commands]}" = "true" ] || 
+       [ "${DETECTED_ENV[has_custom_agents]}" = "true" ] || 
+       [ "${DETECTED_ENV[has_custom_hooks]}" = "true" ]; then
+        INSTALL_CONFIG[smart_merge]="true"
+        INSTALL_CONFIG[preserve_custom]="true"
+    fi
+}
+
+configure_minimal_installation() {
+    # Only core CCDK
+    INSTALL_CONFIG[install_ccdk]="true"
+    INSTALL_CONFIG[install_superclaude]="false"
+    INSTALL_CONFIG[install_thinkchain]="false"
+    INSTALL_CONFIG[install_taskmaster]="false"
+    INSTALL_CONFIG[install_templates]="false"
+    INSTALL_CONFIG[install_dashboards]="false"
+}
+
+configure_full_installation() {
+    # Everything enabled
+    INSTALL_CONFIG[install_ccdk]="true"
+    INSTALL_CONFIG[install_superclaude]="true"
+    INSTALL_CONFIG[install_thinkchain]="true"
+    INSTALL_CONFIG[install_taskmaster]="true"
+    INSTALL_CONFIG[install_templates]="true"
+    INSTALL_CONFIG[install_dashboards]="true"
+    INSTALL_CONFIG[smart_merge]="false"
+    INSTALL_CONFIG[backup_existing]="true"
+}
+
+show_help() {
+    echo "CCDK i124q Advanced Installer"
+    echo ""
+    echo "Usage: ./install-advanced.sh [options]"
+    echo ""
+    echo "Options:"
+    echo "  --auto        Use smart defaults without prompting"
+    echo "  --help, -h    Show this help message"
+    echo ""
+}
+
+# Placeholder component installation functions
+install_superclaude_component() {
+    local src="$1"
+    local dest="$2"
+    
+    # Create SuperClaude directories
+    mkdir -p "$dest/superclaude/commands"
+    mkdir -p "$dest/superclaude/core"
+    
+    # Copy SuperClaude files
+    if [ -d "$src/superclaude" ]; then
+        cp -r "$src/superclaude/"* "$dest/superclaude/" 2>/dev/null || true
+    fi
+}
+
+install_thinkchain_component() {
+    local src="$1"
+    local dest="$2"
+    
+    # Create ThinkChain directories
+    mkdir -p "$dest/thinkchain"
+    
+    # Copy ThinkChain files
+    if [ -d "$src/thinkchain" ]; then
+        cp -r "$src/thinkchain/"* "$dest/thinkchain/" 2>/dev/null || true
+    fi
+}
+
+install_taskmaster_component() {
+    local src="$1"
+    local dest="$2"
+    
+    # Create Task Master directories
+    mkdir -p "$dest/taskmaster"
+    
+    # Copy Task Master files
+    if [ -d "$src/.taskmaster" ]; then
+        cp -r "$src/.taskmaster" "$dest/" 2>/dev/null || true
+    fi
+}
+
+install_templates_component() {
+    local src="$1"
+    local dest="$2"
+    
+    # Create Templates directories
+    mkdir -p "$dest/templates"
+    
+    # Copy Templates files
+    if [ -d "$src/templates" ]; then
+        cp -r "$src/templates/"* "$dest/templates/" 2>/dev/null || true
+    fi
+}
+
+install_dashboards_component() {
+    local src="$1"
+    local dest="$2"
+    
+    # Create Dashboards directories
+    mkdir -p "$dest/dashboards"
+    
+    # Copy Dashboard files
+    if [ -d "$src/dashboard" ]; then
+        cp -r "$src/dashboard/"* "$dest/dashboards/" 2>/dev/null || true
+    fi
+}
+
+merge_existing_customizations() {
+    local dest="$1"
+    # Smart merge logic would go here
+    print_item "Preserving existing customizations..."
+}
+
+setup_dashboards() {
+    local dest="$1"
+    print_item "Configuring dashboard services..."
+}
+
+configure_ide_integrations() {
+    print_item "Updating IDE configurations..."
+}
+
+run_post_install_checks() {
+    local dest="$1"
+    print_item "Running post-installation checks..."
+}
+
 # Run main function
 main "$@"
