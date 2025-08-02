@@ -737,60 +737,8 @@ show_completion_message() {
 }
 
 # =============================================================================
-# MAIN ENTRY POINT
+# HELPER FUNCTIONS
 # =============================================================================
-
-main() {
-    # Parse command line arguments
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            --auto)
-                INSTALL_CONFIG[install_mode]="smart"
-                shift
-                ;;
-            --help|-h)
-                show_help
-                exit 0
-                ;;
-            *)
-                print_error "Unknown option: $1"
-                show_help
-                exit 1
-                ;;
-        esac
-    done
-    
-    # Clear screen for professional presentation
-    clear
-    
-    # Run installation flow
-    detect_environment
-    scan_existing_installation
-    
-    if [ "${INSTALL_CONFIG[install_mode]}" = "" ]; then
-        show_installation_menu
-    fi
-    
-    case "${INSTALL_CONFIG[install_mode]}" in
-        custom)
-            configure_components
-            configure_advanced_options
-            ;;
-        smart)
-            # Use smart defaults based on detection
-            configure_smart_defaults
-            ;;
-        minimal)
-            configure_minimal_installation
-            ;;
-        full)
-            configure_full_installation
-            ;;
-    esac
-    
-    show_installation_summary
-    perform_installation
-}
 
 # Helper configuration functions
 configure_smart_defaults() {
@@ -929,6 +877,62 @@ configure_ide_integrations() {
 run_post_install_checks() {
     local dest="$1"
     print_item "Running post-installation checks..."
+}
+
+# =============================================================================
+# MAIN ENTRY POINT
+# =============================================================================
+
+main() {
+    # Parse command line arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --auto)
+                INSTALL_CONFIG[install_mode]="smart"
+                shift
+                ;;
+            --help|-h)
+                show_help
+                exit 0
+                ;;
+            *)
+                print_error "Unknown option: $1"
+                show_help
+                exit 1
+                ;;
+        esac
+    done
+    
+    # Clear screen for professional presentation
+    clear
+    
+    # Run installation flow
+    detect_environment
+    scan_existing_installation
+    
+    if [ "${INSTALL_CONFIG[install_mode]}" = "" ]; then
+        show_installation_menu
+    fi
+    
+    case "${INSTALL_CONFIG[install_mode]}" in
+        custom)
+            configure_components
+            configure_advanced_options
+            ;;
+        smart)
+            # Use smart defaults based on detection
+            configure_smart_defaults
+            ;;
+        minimal)
+            configure_minimal_installation
+            ;;
+        full)
+            configure_full_installation
+            ;;
+    esac
+    
+    show_installation_summary
+    perform_installation
 }
 
 # Run main function
