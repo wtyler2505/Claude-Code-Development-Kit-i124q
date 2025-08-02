@@ -1,0 +1,111 @@
+{
+  "success": true,
+  "timestamp": "2025-08-02T15:03:59.216984",
+  "results": {
+    "unified_dashboard": {
+      "health_check": {
+        "status": "PASS",
+        "details": "Service responding with status 200",
+        "timestamp": "2025-08-02T15:03:50.018599"
+      },
+      "endpoint_/": {
+        "status": "PASS",
+        "details": "HTML response length: 9790",
+        "timestamp": "2025-08-02T15:03:50.054996"
+      },
+      "endpoint_/api/status": {
+        "status": "PASS",
+        "details": "Valid JSON response with 7 keys",
+        "timestamp": "2025-08-02T15:03:50.059259"
+      },
+      "endpoint_/api/refresh": {
+        "status": "PASS",
+        "details": "Valid JSON response with 2 keys",
+        "timestamp": "2025-08-02T15:03:50.061871"
+      },
+      "data_aggregation": {
+        "status": "PASS",
+        "details": "All systems integrated, total capabilities: 37",
+        "timestamp": "2025-08-02T15:03:54.871436"
+      }
+    },
+    "enhanced_webui": {
+      "health_check": {
+        "status": "PASS",
+        "details": "Service responding with status 200",
+        "timestamp": "2025-08-02T15:03:50.098832"
+      },
+      "endpoint_/": {
+        "status": "PASS",
+        "details": "HTML response length: 20452",
+        "timestamp": "2025-08-02T15:03:50.107506"
+      },
+      "endpoint_/api/stats": {
+        "status": "PASS",
+        "details": "Valid JSON response with 9 keys",
+        "timestamp": "2025-08-02T15:03:50.117177"
+      },
+      "endpoint_/api/commands": {
+        "status": "PASS",
+        "details": "Valid JSON response with 3 keys",
+        "timestamp": "2025-08-02T15:03:50.146146"
+      },
+      "command_browsing": {
+        "status": "PASS",
+        "details": "All command systems accessible, total commands: 37",
+        "timestamp": "2025-08-02T15:03:54.903640"
+      }
+    },
+    "enhanced_analytics": {
+      "health_check": {
+        "status": "PASS",
+        "details": "Service responding with status 200",
+        "timestamp": "2025-08-02T15:03:51.253812"
+      },
+      "endpoint_/": {
+        "status": "PASS",
+        "details": "HTML response length: 11050",
+        "timestamp": "2025-08-02T15:03:52.365536"
+      },
+      "endpoint_/api/status": {
+        "status": "PASS",
+        "details": "Valid JSON response with 6 keys",
+        "timestamp": "2025-08-02T15:03:53.557144"
+      },
+      "endpoint_/api/metrics": {
+        "status": "PASS",
+        "details": "Valid JSON response with 7 keys",
+        "timestamp": "2025-08-02T15:03:53.653590"
+      },
+      "endpoint_/api/health": {
+        "status": "PASS",
+        "details": "Valid JSON response with 4 keys",
+        "timestamp": "2025-08-02T15:03:54.856130"
+      },
+      "monitoring": {
+        "status": "PASS",
+        "details": "Analytics monitoring operational with 3 sections",
+        "timestamp": "2025-08-02T15:03:57.451974"
+      }
+    },
+    "database": {
+      "hive_operations": {
+        "status": "PASS",
+        "details": "Database operational with 0 notes, CRUD operations working",
+        "timestamp": "2025-08-02T15:03:57.456387"
+      }
+    },
+    "integration": {
+      "data_consistency": {
+        "status": "PASS",
+        "details": "All services report consistent total capabilities: 37",
+        "timestamp": "2025-08-02T15:03:57.700986"
+      },
+      "cross_service_navigation": {
+        "status": "PASS",
+        "details": "All 3 services accessible for navigation",
+        "timestamp": "2025-08-02T15:03:59.216658"
+      }
+    }
+  }
+}
