@@ -117,7 +117,31 @@ CURRENT_FILTER=""
 CURRENT_SORT="name"
 
 # Search parameters
-SEARCH_ROOT="${HOME}"
+# Detect the correct user directory based on the OS
+if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "mingw"* ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ -n "$WINDIR" ]]; then
+    # Windows system - use the correct path
+    # Check for wtyle (without 'r' at the end)
+    if [ -d "/c/Users/wtyle" ]; then
+        SEARCH_ROOT="/c/Users/wtyle"
+    elif [ -d "C:/Users/wtyle" ]; then
+        SEARCH_ROOT="C:/Users/wtyle"
+    elif [ -d "$USERPROFILE" ]; then
+        # Convert Windows path to Unix-style
+        SEARCH_ROOT=$(echo "$USERPROFILE" | sed 's|\\|/|g' | sed 's|^\([A-Za-z]\):|/\L\1|')
+    else
+        SEARCH_ROOT="${HOME}"
+    fi
+else
+    # Unix/Linux/Mac system
+    SEARCH_ROOT="${HOME}"
+fi
+
+# Verify and display the search root
+if [ ! -d "$SEARCH_ROOT" ]; then
+    echo "Warning: Search root $SEARCH_ROOT does not exist, falling back to $HOME"
+    SEARCH_ROOT="${HOME}"
+fi
+
 MAX_DEPTH=5
 EXCLUDE_DIRS=("node_modules" ".git" "vendor" "dist" "build" ".cache" ".npm" ".yarn" "__pycache__" ".pytest_cache")
 
@@ -398,7 +422,13 @@ detect_all_projects() {
         return
     fi
     
-    println_color "$COLOR_INFO" "  ${SEARCH} Deep scanning: ${BOLD}$SEARCH_ROOT${NC}"
+    # Display Windows-style path on Windows for clarity
+    local display_path="$SEARCH_ROOT"
+    if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "mingw"* ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ -n "$WINDIR" ]]; then
+        # Convert to Windows-style display path
+        display_path=$(echo "$SEARCH_ROOT" | sed 's|^/\([a-z]\)|\U\1:|' | sed 's|/|\\|g')
+    fi
+    println_color "$COLOR_INFO" "  ${SEARCH} Deep scanning: ${BOLD}$display_path${NC}"
     println_color "$COLOR_INFO" "  ${GEAR} Max depth: ${BOLD}$MAX_DEPTH${NC} | Excluding: ${DIM}${EXCLUDE_DIRS[*]}${NC}"
     echo
     
