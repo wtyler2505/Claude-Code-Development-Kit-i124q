@@ -1,0 +1,806 @@
+{
+  "marketplace": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-02",
+    "categories": {
+      "ai_assistants": "AI & Language Model Assistants",
+      "data_tools": "Data & Database Tools",
+      "dev_tools": "Development & Coding Tools",
+      "search_web": "Search & Web Tools",
+      "automation": "Automation & Browser Control",
+      "cloud_services": "Cloud Services & APIs",
+      "productivity": "Productivity & Workflow",
+      "monitoring": "Monitoring & Analytics",
+      "security": "Security & Authentication",
+      "communication": "Communication & Collaboration"
+    },
+    "servers": {
+      "mcp-gemini-assistant": {
+        "name": "Gemini Assistant",
+        "category": "ai_assistants",
+        "description": "Google Gemini AI integration for advanced code consultation and analysis",
+        "repository": "https://github.com/peterkrueck/mcp-gemini-assistant",
+        "author": "peterkrueck",
+        "stars": 150,
+        "installation": {
+          "method": "npm",
+          "package": "@peterkrueck/mcp-gemini-assistant",
+          "requirements": ["node", "npm"],
+          "env": {
+            "GEMINI_API_KEY": {
+              "required": true,
+              "description": "Google Gemini API key",
+              "url": "https://makersuite.google.com/app/apikey"
+            }
+          }
+        },
+        "features": [
+          "Multi-turn conversations",
+          "Code analysis and review",
+          "Architecture consultation",
+          "Debugging assistance"
+        ],
+        "recommended": true,
+        "popularity": 9
+      },
+      "mcp-context7": {
+        "name": "Context7",
+        "category": "dev_tools",
+        "description": "Access up-to-date documentation for any library or framework",
+        "repository": "https://github.com/upstash/context7",
+        "author": "upstash",
+        "stars": 200,
+        "installation": {
+          "method": "npm",
+          "package": "@upstash/mcp-context7",
+          "requirements": ["node", "npm"]
+        },
+        "features": [
+          "Current library documentation",
+          "Version-specific docs",
+          "Topic-focused retrieval",
+          "Offline caching"
+        ],
+        "recommended": true,
+        "popularity": 10
+      },
+      "mcp-sqlite": {
+        "name": "SQLite",
+        "category": "data_tools",
+        "description": "SQLite database operations and management",
+        "repository": "https://github.com/benborla29/mcp-sqlite",
+        "author": "benborla29",
+        "stars": 450,
+        "installation": {
+          "method": "npm",
+          "package": "@benborla29/mcp-sqlite",
+          "requirements": ["node", "npm"]
+        },
+        "features": [
+          "Database creation and management",
+          "Query execution",
+          "Schema inspection",
+          "Transaction support"
+        ],
+        "recommended": true,
+        "popularity": 9
+      },
+      "mcp-filesystem": {
+        "name": "Filesystem",
+        "category": "dev_tools",
+        "description": "Advanced file system operations and management",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-filesystem",
+          "requirements": ["node", "npm"],
+          "config": {
+            "allowedDirectories": {
+              "type": "array",
+              "description": "List of directories the server can access",
+              "default": ["$PROJECT_ROOT"]
+            }
+          }
+        },
+        "features": [
+          "File read/write operations",
+          "Directory management",
+          "File search and glob patterns",
+          "Metadata inspection"
+        ],
+        "recommended": false,
+        "popularity": 8
+      },
+      "mcp-github": {
+        "name": "GitHub",
+        "category": "dev_tools",
+        "description": "GitHub repository management and operations",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-github",
+          "requirements": ["node", "npm"],
+          "env": {
+            "GITHUB_TOKEN": {
+              "required": true,
+              "description": "GitHub personal access token",
+              "url": "https://github.com/settings/tokens"
+            }
+          }
+        },
+        "features": [
+          "Repository creation and management",
+          "Pull request operations",
+          "Issue tracking",
+          "Code search"
+        ],
+        "recommended": true,
+        "popularity": 9
+      },
+      "mcp-memory": {
+        "name": "Memory",
+        "category": "data_tools",
+        "description": "Knowledge graph for storing and retrieving information",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-memory",
+          "requirements": ["node", "npm"]
+        },
+        "features": [
+          "Entity creation and management",
+          "Relationship mapping",
+          "Knowledge graph queries",
+          "Persistent storage"
+        ],
+        "recommended": true,
+        "popularity": 8
+      },
+      "mcp-brave-search": {
+        "name": "Brave Search",
+        "category": "search_web",
+        "description": "Web search using Brave Search API",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-brave-search",
+          "requirements": ["node", "npm"],
+          "env": {
+            "BRAVE_API_KEY": {
+              "required": true,
+              "description": "Brave Search API key",
+              "url": "https://brave.com/search/api/"
+            }
+          }
+        },
+        "features": [
+          "Web search",
+          "News search",
+          "Image search",
+          "Search filters"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-puppeteer": {
+        "name": "Puppeteer",
+        "category": "automation",
+        "description": "Browser automation with Puppeteer",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-puppeteer",
+          "requirements": ["node", "npm", "chromium"],
+          "postInstall": "npx puppeteer browsers install chrome"
+        },
+        "features": [
+          "Browser automation",
+          "Screenshot capture",
+          "Web scraping",
+          "Form automation"
+        ],
+        "recommended": false,
+        "popularity": 8
+      },
+      "mcp-playwright": {
+        "name": "Playwright",
+        "category": "automation",
+        "description": "Cross-browser automation with Playwright",
+        "repository": "https://github.com/executeautomation/mcp-playwright",
+        "author": "executeautomation",
+        "stars": 250,
+        "installation": {
+          "method": "npm",
+          "package": "@executeautomation/mcp-playwright",
+          "requirements": ["node", "npm"],
+          "postInstall": "npx playwright install"
+        },
+        "features": [
+          "Multi-browser support",
+          "Mobile emulation",
+          "Network interception",
+          "Visual testing"
+        ],
+        "recommended": true,
+        "popularity": 9
+      },
+      "mcp-mongodb": {
+        "name": "MongoDB",
+        "category": "data_tools",
+        "description": "MongoDB database operations",
+        "repository": "https://github.com/kiliczsh/mcp-mongo-server",
+        "author": "kiliczsh",
+        "stars": 150,
+        "installation": {
+          "method": "npm",
+          "package": "@kiliczsh/mcp-mongo-server",
+          "requirements": ["node", "npm"],
+          "env": {
+            "MONGODB_URI": {
+              "required": true,
+              "description": "MongoDB connection string",
+              "example": "mongodb://localhost:27017/mydb"
+            }
+          }
+        },
+        "features": [
+          "CRUD operations",
+          "Aggregation pipelines",
+          "Index management",
+          "Collection management"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-postgres": {
+        "name": "PostgreSQL",
+        "category": "data_tools",
+        "description": "PostgreSQL database operations",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-postgres",
+          "requirements": ["node", "npm"],
+          "env": {
+            "POSTGRES_URL": {
+              "required": true,
+              "description": "PostgreSQL connection string",
+              "example": "postgresql://user:pass@localhost:5432/mydb"
+            }
+          }
+        },
+        "features": [
+          "SQL query execution",
+          "Schema management",
+          "Transaction support",
+          "Backup and restore"
+        ],
+        "recommended": false,
+        "popularity": 8
+      },
+      "mcp-slack": {
+        "name": "Slack",
+        "category": "communication",
+        "description": "Slack workspace integration",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-slack",
+          "requirements": ["node", "npm"],
+          "env": {
+            "SLACK_BOT_TOKEN": {
+              "required": true,
+              "description": "Slack bot token",
+              "url": "https://api.slack.com/apps"
+            },
+            "SLACK_APP_TOKEN": {
+              "required": true,
+              "description": "Slack app token"
+            }
+          }
+        },
+        "features": [
+          "Message sending",
+          "Channel management",
+          "User interactions",
+          "File sharing"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-aws": {
+        "name": "AWS",
+        "category": "cloud_services",
+        "description": "AWS services integration",
+        "repository": "https://github.com/aws-samples/mcp-server-aws",
+        "author": "aws-samples",
+        "stars": 300,
+        "installation": {
+          "method": "npm",
+          "package": "@aws-samples/mcp-server-aws",
+          "requirements": ["node", "npm"],
+          "env": {
+            "AWS_ACCESS_KEY_ID": {
+              "required": true,
+              "description": "AWS access key"
+            },
+            "AWS_SECRET_ACCESS_KEY": {
+              "required": true,
+              "description": "AWS secret key"
+            },
+            "AWS_REGION": {
+              "required": false,
+              "description": "AWS region",
+              "default": "us-east-1"
+            }
+          }
+        },
+        "features": [
+          "S3 operations",
+          "Lambda management",
+          "EC2 control",
+          "CloudWatch monitoring"
+        ],
+        "recommended": false,
+        "popularity": 8
+      },
+      "mcp-google-cloud": {
+        "name": "Google Cloud",
+        "category": "cloud_services",
+        "description": "Google Cloud Platform integration",
+        "repository": "https://github.com/googleapis/mcp-server-gcp",
+        "author": "googleapis",
+        "stars": 200,
+        "installation": {
+          "method": "npm",
+          "package": "@googleapis/mcp-server-gcp",
+          "requirements": ["node", "npm"],
+          "env": {
+            "GOOGLE_APPLICATION_CREDENTIALS": {
+              "required": true,
+              "description": "Path to GCP service account JSON",
+              "url": "https://cloud.google.com/iam/docs/service-accounts"
+            }
+          }
+        },
+        "features": [
+          "Cloud Storage",
+          "BigQuery",
+          "Cloud Functions",
+          "Pub/Sub messaging"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-stripe": {
+        "name": "Stripe",
+        "category": "cloud_services",
+        "description": "Stripe payment processing integration",
+        "repository": "https://github.com/stripe-samples/mcp-server-stripe",
+        "author": "stripe-samples",
+        "stars": 180,
+        "installation": {
+          "method": "npm",
+          "package": "@stripe-samples/mcp-server-stripe",
+          "requirements": ["node", "npm"],
+          "env": {
+            "STRIPE_SECRET_KEY": {
+              "required": true,
+              "description": "Stripe secret key",
+              "url": "https://dashboard.stripe.com/apikeys"
+            }
+          }
+        },
+        "features": [
+          "Payment processing",
+          "Customer management",
+          "Subscription handling",
+          "Invoice generation"
+        ],
+        "recommended": false,
+        "popularity": 6
+      },
+      "mcp-docker": {
+        "name": "Docker",
+        "category": "dev_tools",
+        "description": "Docker container management",
+        "repository": "https://github.com/docker/mcp-server-docker",
+        "author": "docker",
+        "stars": 400,
+        "installation": {
+          "method": "npm",
+          "package": "@docker/mcp-server-docker",
+          "requirements": ["node", "npm", "docker"]
+        },
+        "features": [
+          "Container management",
+          "Image operations",
+          "Volume management",
+          "Network configuration"
+        ],
+        "recommended": false,
+        "popularity": 8
+      },
+      "mcp-kubernetes": {
+        "name": "Kubernetes",
+        "category": "dev_tools",
+        "description": "Kubernetes cluster management",
+        "repository": "https://github.com/kubernetes/mcp-server-k8s",
+        "author": "kubernetes",
+        "stars": 350,
+        "installation": {
+          "method": "npm",
+          "package": "@kubernetes/mcp-server-k8s",
+          "requirements": ["node", "npm", "kubectl"],
+          "config": {
+            "kubeconfig": {
+              "type": "string",
+              "description": "Path to kubeconfig file",
+              "default": "~/.kube/config"
+            }
+          }
+        },
+        "features": [
+          "Pod management",
+          "Service operations",
+          "Deployment control",
+          "ConfigMap/Secret management"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-redis": {
+        "name": "Redis",
+        "category": "data_tools",
+        "description": "Redis cache and data store operations",
+        "repository": "https://github.com/redis/mcp-server-redis",
+        "author": "redis",
+        "stars": 220,
+        "installation": {
+          "method": "npm",
+          "package": "@redis/mcp-server-redis",
+          "requirements": ["node", "npm"],
+          "env": {
+            "REDIS_URL": {
+              "required": true,
+              "description": "Redis connection URL",
+              "example": "redis://localhost:6379"
+            }
+          }
+        },
+        "features": [
+          "Key-value operations",
+          "Pub/Sub messaging",
+          "Cache management",
+          "Data persistence"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-elasticsearch": {
+        "name": "Elasticsearch",
+        "category": "data_tools",
+        "description": "Elasticsearch search and analytics",
+        "repository": "https://github.com/elastic/mcp-server-elasticsearch",
+        "author": "elastic",
+        "stars": 280,
+        "installation": {
+          "method": "npm",
+          "package": "@elastic/mcp-server-elasticsearch",
+          "requirements": ["node", "npm"],
+          "env": {
+            "ELASTICSEARCH_URL": {
+              "required": true,
+              "description": "Elasticsearch URL",
+              "example": "http://localhost:9200"
+            },
+            "ELASTICSEARCH_API_KEY": {
+              "required": false,
+              "description": "Elasticsearch API key"
+            }
+          }
+        },
+        "features": [
+          "Full-text search",
+          "Data indexing",
+          "Aggregations",
+          "Query DSL"
+        ],
+        "recommended": false,
+        "popularity": 7
+      },
+      "mcp-jira": {
+        "name": "Jira",
+        "category": "productivity",
+        "description": "Jira issue tracking and project management",
+        "repository": "https://github.com/atlassian/mcp-server-jira",
+        "author": "atlassian",
+        "stars": 190,
+        "installation": {
+          "method": "npm",
+          "package": "@atlassian/mcp-server-jira",
+          "requirements": ["node", "npm"],
+          "env": {
+            "JIRA_URL": {
+              "required": true,
+              "description": "Jira instance URL",
+              "example": "https://yourcompany.atlassian.net"
+            },
+            "JIRA_EMAIL": {
+              "required": true,
+              "description": "Jira user email"
+            },
+            "JIRA_API_TOKEN": {
+              "required": true,
+              "description": "Jira API token",
+              "url": "https://id.atlassian.com/manage-profile/security/api-tokens"
+            }
+          }
+        },
+        "features": [
+          "Issue creation and management",
+          "Sprint planning",
+          "Project tracking",
+          "Workflow automation"
+        ],
+        "recommended": false,
+        "popularity": 6
+      },
+      "mcp-notion": {
+        "name": "Notion",
+        "category": "productivity",
+        "description": "Notion workspace integration",
+        "repository": "https://github.com/notion-community/mcp-server-notion",
+        "author": "notion-community",
+        "stars": 320,
+        "installation": {
+          "method": "npm",
+          "package": "@notion-community/mcp-server-notion",
+          "requirements": ["node", "npm"],
+          "env": {
+            "NOTION_API_KEY": {
+              "required": true,
+              "description": "Notion integration token",
+              "url": "https://www.notion.so/my-integrations"
+            }
+          }
+        },
+        "features": [
+          "Page creation and editing",
+          "Database operations",
+          "Block management",
+          "Search functionality"
+        ],
+        "recommended": false,
+        "popularity": 8
+      },
+      "mcp-todoist": {
+        "name": "Todoist",
+        "category": "productivity",
+        "description": "Todoist task management",
+        "repository": "https://github.com/doist/mcp-server-todoist",
+        "author": "doist",
+        "stars": 140,
+        "installation": {
+          "method": "npm",
+          "package": "@doist/mcp-server-todoist",
+          "requirements": ["node", "npm"],
+          "env": {
+            "TODOIST_API_KEY": {
+              "required": true,
+              "description": "Todoist API token",
+              "url": "https://todoist.com/app/settings/integrations"
+            }
+          }
+        },
+        "features": [
+          "Task creation",
+          "Project management",
+          "Label organization",
+          "Due date tracking"
+        ],
+        "recommended": false,
+        "popularity": 5
+      },
+      "mcp-perplexity": {
+        "name": "Perplexity",
+        "category": "ai_assistants",
+        "description": "Perplexity AI search and research",
+        "repository": "https://github.com/perplexity-ai/mcp-server-perplexity",
+        "author": "perplexity-ai",
+        "stars": 280,
+        "installation": {
+          "method": "npm",
+          "package": "@perplexity-ai/mcp-server-perplexity",
+          "requirements": ["node", "npm"],
+          "env": {
+            "PERPLEXITY_API_KEY": {
+              "required": true,
+              "description": "Perplexity API key",
+              "url": "https://www.perplexity.ai/settings/api"
+            }
+          }
+        },
+        "features": [
+          "AI-powered search",
+          "Research assistance",
+          "Citation tracking",
+          "Real-time information"
+        ],
+        "recommended": true,
+        "popularity": 8
+      },
+      "mcp-openai": {
+        "name": "OpenAI",
+        "category": "ai_assistants",
+        "description": "OpenAI GPT integration",
+        "repository": "https://github.com/openai/mcp-server-openai",
+        "author": "openai",
+        "stars": 500,
+        "installation": {
+          "method": "npm",
+          "package": "@openai/mcp-server-openai",
+          "requirements": ["node", "npm"],
+          "env": {
+            "OPENAI_API_KEY": {
+              "required": true,
+              "description": "OpenAI API key",
+              "url": "https://platform.openai.com/api-keys"
+            }
+          }
+        },
+        "features": [
+          "GPT-4 access",
+          "Code generation",
+          "Text completion",
+          "Image generation"
+        ],
+        "recommended": false,
+        "popularity": 9
+      },
+      "mcp-anthropic": {
+        "name": "Anthropic",
+        "category": "ai_assistants",
+        "description": "Anthropic Claude API integration",
+        "repository": "https://github.com/anthropics/mcp-server-anthropic",
+        "author": "anthropics",
+        "stars": 600,
+        "installation": {
+          "method": "npm",
+          "package": "@anthropics/mcp-server-anthropic",
+          "requirements": ["node", "npm"],
+          "env": {
+            "ANTHROPIC_API_KEY": {
+              "required": true,
+              "description": "Anthropic API key",
+              "url": "https://console.anthropic.com"
+            }
+          }
+        },
+        "features": [
+          "Claude API access",
+          "Constitutional AI",
+          "Long context windows",
+          "Code assistance"
+        ],
+        "recommended": false,
+        "popularity": 9
+      },
+      "mcp-time": {
+        "name": "Time",
+        "category": "productivity",
+        "description": "Time and timezone utilities",
+        "repository": "https://github.com/modelcontextprotocol/servers",
+        "author": "modelcontextprotocol",
+        "stars": 1200,
+        "installation": {
+          "method": "npm",
+          "package": "@modelcontextprotocol/server-time",
+          "requirements": ["node", "npm"]
+        },
+        "features": [
+          "Current time",
+          "Timezone conversion",
+          "Date calculations",
+          "Scheduling utilities"
+        ],
+        "recommended": true,
+        "popularity": 8
+      },
+      "mcp-desktop-commander": {
+        "name": "Desktop Commander",
+        "category": "automation",
+        "description": "Desktop automation and file system control",
+        "repository": "https://github.com/DesktopCommanderDev/desktop-commander",
+        "author": "DesktopCommanderDev",
+        "stars": 400,
+        "installation": {
+          "method": "npm",
+          "package": "@desktop-commander/mcp-server",
+          "requirements": ["node", "npm"],
+          "config": {
+            "allowedDirectories": {
+              "type": "array",
+              "description": "Directories the server can access",
+              "default": ["$HOME", "$PROJECT_ROOT"]
+            }
+          }
+        },
+        "features": [
+          "File system operations",
+          "Process management",
+          "Command execution",
+          "System monitoring"
+        ],
+        "recommended": true,
+        "popularity": 9
+      },
+      "mcp-taskmaster-ai": {
+        "name": "TaskMaster AI",
+        "category": "productivity",
+        "description": "AI-powered task and project management",
+        "repository": "https://github.com/taskmaster-ai/mcp-server",
+        "author": "taskmaster-ai",
+        "stars": 350,
+        "installation": {
+          "method": "npm",
+          "package": "@taskmaster-ai/mcp-server",
+          "requirements": ["node", "npm"],
+          "env": {
+            "ANTHROPIC_API_KEY": {
+              "required": false,
+              "description": "Optional for AI features"
+            },
+            "PERPLEXITY_API_KEY": {
+              "required": false,
+              "description": "Optional for research features"
+            }
+          }
+        },
+        "features": [
+          "Task generation from PRDs",
+          "Dependency management",
+          "Complexity analysis",
+          "Project tracking"
+        ],
+        "recommended": true,
+        "popularity": 8
+      },
+      "mcp-clear-thought": {
+        "name": "Clear Thought",
+        "category": "ai_assistants",
+        "description": "Advanced reasoning and problem-solving tools",
+        "repository": "https://github.com/clear-thought/mcp-server",
+        "author": "clear-thought",
+        "stars": 250,
+        "installation": {
+          "method": "npm",
+          "package": "@clear-thought/mcp-server",
+          "requirements": ["node", "npm"]
+        },
+        "features": [
+          "Sequential thinking",
+          "Mental models",
+          "Debugging approaches",
+          "Decision frameworks"
+        ],
+        "recommended": true,
+        "popularity": 8
+      }
+    }
+  }
+}

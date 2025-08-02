@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+# Script directory detection
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # =============================================================================
 # CONFIGURATION & CONSTANTS
 # =============================================================================
@@ -244,7 +247,7 @@ show_main_menu() {
         print_color "$COLOR_DIM" "  │ "
         print_color "$COLOR_PROMPT" "[4]${NC} Recent Projects   "
         print_color "$COLOR_DIM" "│ "
-        print_color "$COLOR_PROMPT" "[M]${NC} Migration Center   "
+        print_color "$COLOR_PROMPT" "[M]${NC} MCP Marketplace    "
         print_color "$COLOR_DIM" "│ "
         print_color "$COLOR_PROMPT" "[?]${NC} Learning Center    "
         println_color "$COLOR_DIM" "│"
@@ -329,7 +332,7 @@ process_main_command() {
         [Hh]) show_health_dashboard ;;
         [Bb]) show_batch_operations ;;
         [Tt]) show_template_library ;;
-        [Mm]) show_migration_center ;;
+        [Mm]) show_mcp_marketplace ;;
         
         # Intelligence
         [Gg]) show_project_graph ;;
@@ -453,10 +456,16 @@ find_projects_parallel() {
         exclude_args+=(-o -path "*/$dir" -prune)
     done
     
+    # Clear temp file
+    > "$CACHE_DIR/found_dirs.tmp"
+    
     # Find all potential project directories in parallel
-    # PRIMARY METHOD: Look for CLAUDE.PROJECT marker files
+    # PRIMARY METHOD: Look for CLAUDE.PROJECT marker files (HIGHEST PRIORITY)
+    echo "  [${CHECK_MARK}] Searching for CLAUDE.PROJECT markers..."
     find "$SEARCH_ROOT" -maxdepth $MAX_DEPTH -name "CLAUDE.PROJECT" -type f 2>/dev/null | while read -r marker; do
-        dirname "$marker" >> "$CACHE_DIR/found_dirs.tmp"
+        local project_dir=$(dirname "$marker")
+        echo "$project_dir" >> "$CACHE_DIR/found_dirs.tmp"
+        echo "    Found marker: $project_dir"
     done
     
     # SECONDARY METHOD: Traditional project detection
@@ -1369,6 +1378,38 @@ count_active_processes() {
 }
 
 # =============================================================================
+# PROJECT VALIDATION FUNCTIONS
+# =============================================================================
+
+is_valid_project() {
+    local project_dir="$1"
+    
+    # Skip if directory doesn't exist
+    [ ! -d "$project_dir" ] && return 1
+    
+    # Priority 1: CLAUDE.PROJECT marker file (HIGHEST PRIORITY)
+    [ -f "$project_dir/CLAUDE.PROJECT" ] && return 0
+    
+    # Priority 2: .claude directory
+    [ -d "$project_dir/.claude" ] && return 0
+    
+    # Priority 3: Common project indicators
+    [ -f "$project_dir/package.json" ] && return 0
+    [ -f "$project_dir/pyproject.toml" ] && return 0
+    [ -f "$project_dir/Cargo.toml" ] && return 0
+    [ -f "$project_dir/go.mod" ] && return 0
+    [ -f "$project_dir/pom.xml" ] && return 0
+    [ -f "$project_dir/build.gradle" ] && return 0
+    [ -f "$project_dir/Makefile" ] && return 0
+    [ -f "$project_dir/requirements.txt" ] && return 0
+    [ -f "$project_dir/composer.json" ] && return 0
+    [ -f "$project_dir/Gemfile" ] && return 0
+    [ -d "$project_dir/.git" ] && return 0
+    
+    return 1
+}
+
+# =============================================================================
 # MAIN ENTRY POINT
 # =============================================================================
 
@@ -1918,6 +1959,52 @@ show_superclaude_config() {
     esac
     
     show_superclaude_config  # Return to menu
+}
+
+# =============================================================================
+# MCP SERVER MARKETPLACE
+# =============================================================================
+
+show_mcp_marketplace() {
+    clear
+    print_header "MCP Server Marketplace ${PACKAGE}"
+    
+    # Source the marketplace installer module
+    local marketplace_script="$SCRIPT_DIR/mcp-marketplace/installer.sh"
+    
+    if [ ! -f "$marketplace_script" ]; then
+        println_color "$COLOR_WARNING" "  ⚠️  MCP Marketplace module not found."
+        println_color "$COLOR_INFO" "  Installing marketplace module..."
+        
+        # Download or create the marketplace module
+        mkdir -p "$SCRIPT_DIR/mcp-marketplace"
+        
+        # Try to download from repository
+        if curl -fsSL "https://raw.githubusercontent.com/wtyler2505/Claude-Code-Development-Kit-i124q/main/mcp-marketplace/installer.sh" \
+               -o "$marketplace_script" 2>/dev/null; then
+            println_color "$COLOR_SUCCESS" "  ✅ Marketplace module downloaded"
+        else
+            println_color "$COLOR_ERROR" "  ❌ Failed to download marketplace module"
+            println_color "$COLOR_INFO" "  Please ensure the repository is accessible"
+            sleep 3
+            return
+        fi
+        
+        # Download marketplace config
+        curl -fsSL "https://raw.githubusercontent.com/wtyler2505/Claude-Code-Development-Kit-i124q/main/mcp-marketplace/marketplace-config.json" \
+             -o "$SCRIPT_DIR/mcp-marketplace/marketplace-config.json" 2>/dev/null || true
+        
+        chmod +x "$marketplace_script"
+    fi
+    
+    # Source and run the marketplace
+    if [ -f "$marketplace_script" ]; then
+        source "$marketplace_script"
+        marketplace_main
+    else
+        println_color "$COLOR_ERROR" "  ❌ Failed to load marketplace module"
+        sleep 2
+    fi
 }
 
 # TaskMaster Configuration Functions
