@@ -47,7 +47,7 @@ The user required continuation of development on an existing "Claude Code Develo
 
 | Service | Port | Status | Description |
 |---------|------|---------|-------------|
-| Unified Dashboard | 4000 | ✅ RUNNING | Main integration interface |
+| Unified Dashboard | 3000 | ✅ RUNNING | Main integration interface (APP PREVIEW) |
 | Enhanced WebUI | 7000 | ✅ RUNNING | Command browser |  
 | Enhanced Analytics | 5005 | ✅ RUNNING | Monitoring dashboard |
 | MongoDB | 27017 | ✅ RUNNING | Database service |
