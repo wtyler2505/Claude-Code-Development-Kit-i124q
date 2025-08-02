@@ -6,8 +6,13 @@
 
 set -euo pipefail
 
-# Script directory detection
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Script directory detection (handle both sourced and piped execution)
+if [ -n "${BASH_SOURCE[0]:-}" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+    # When piped through curl, use current directory or temp
+    SCRIPT_DIR="${PWD:-/tmp}"
+fi
 
 # =============================================================================
 # CONFIGURATION & CONSTANTS
@@ -117,19 +122,47 @@ CURRENT_FILTER=""
 CURRENT_SORT="name"
 
 # Search parameters
-# Detect the correct user directory based on the OS
-if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "mingw"* ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ -n "$WINDIR" ]]; then
-    # Windows system - use the correct path
-    # Check for wtyle (without 'r' at the end)
+# CRITICAL FIX: The actual Windows username is 'wtyle' NOT 'wtyler'
+# Git Bash incorrectly sets HOME to /home/wtyler but the real directory is C:\Users\wtyle
+
+# FORCE CORRECT PATH - if HOME contains 'wtyler', it's wrong, use 'wtyle'
+if [[ "$HOME" == *"wtyler"* ]]; then
+    # This is the bug - Git Bash has the wrong username
+    # The actual Windows directory is C:\Users\wtyle (no 'r' at the end!)
+    SEARCH_ROOT="/c/Users/wtyle"
+    
+    # Make absolutely sure this path exists
+    if [ ! -d "$SEARCH_ROOT" ]; then
+        # Try alternative formats
+        if [ -d "C:/Users/wtyle" ]; then
+            SEARCH_ROOT="C:/Users/wtyle"
+        elif [ -d "C:\\Users\\wtyle" ]; then
+            SEARCH_ROOT="C:\\Users\\wtyle"
+        else
+            # Last resort - use current directory
+            SEARCH_ROOT="$(pwd)"
+            echo "WARNING: Could not find C:\\Users\\wtyle directory!" >&2
+        fi
+    fi
+elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "mingw"* ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ -n "$WINDIR" ]]; then
+    # Other Windows systems with correct HOME
     if [ -d "/c/Users/wtyle" ]; then
         SEARCH_ROOT="/c/Users/wtyle"
     elif [ -d "C:/Users/wtyle" ]; then
         SEARCH_ROOT="C:/Users/wtyle"
-    elif [ -d "$USERPROFILE" ]; then
+    elif [ -n "$USERPROFILE" ] && [ -d "$USERPROFILE" ]; then
         # Convert Windows path to Unix-style
         SEARCH_ROOT=$(echo "$USERPROFILE" | sed 's|\\|/|g' | sed 's|^\([A-Za-z]\):|/\L\1|')
+    elif [ -d "/c/Users/$ACTUAL_USER" ]; then
+        SEARCH_ROOT="/c/Users/$ACTUAL_USER"
     else
-        SEARCH_ROOT="${HOME}"
+        # Last resort - try to fix the broken HOME path
+        # If HOME is /home/wtyler, change it to /c/Users/wtyle
+        if [[ "$HOME" == "/home/wtyler" ]]; then
+            SEARCH_ROOT="/c/Users/wtyle"
+        else
+            SEARCH_ROOT="${HOME}"
+        fi
     fi
 else
     # Unix/Linux/Mac system
@@ -138,8 +171,13 @@ fi
 
 # Verify and display the search root
 if [ ! -d "$SEARCH_ROOT" ]; then
-    echo "Warning: Search root $SEARCH_ROOT does not exist, falling back to $HOME"
-    SEARCH_ROOT="${HOME}"
+    # Try one more fallback for Windows
+    if [ -d "/c/Users/wtyle" ]; then
+        SEARCH_ROOT="/c/Users/wtyle"
+    else
+        echo "Warning: Search root $SEARCH_ROOT does not exist, using current directory"
+        SEARCH_ROOT="${PWD}"
+    fi
 fi
 
 MAX_DEPTH=5
