@@ -4,7 +4,8 @@
 # The most advanced AI-powered development environment manager ever created
 # Version 5.0.0 - Beyond Ultimate Edition
 
-set -euo pipefail
+# Use less strict mode for better compatibility
+set -eo pipefail
 
 # Script directory detection (handle both sourced and piped execution)
 if [ -n "${BASH_SOURCE[0]:-}" ]; then
@@ -1666,9 +1667,9 @@ analyze_project_advanced() {
     
     # Calculate health score
     local health_score=50
-    [ "${PROJECT_CCDK_STATUS[$project_dir,installed]}" = "true" ] && health_score=$((health_score + 20))
-    [ "${PROJECT_INFO[$project_dir,has_taskmaster]}" = "true" ] && health_score=$((health_score + 10))
-    [ "${PROJECT_INFO[$project_dir,has_superclaude]}" = "true" ] && health_score=$((health_score + 10))
+    [ "${PROJECT_CCDK_STATUS[$key,installed]:-false}" = "true" ] && health_score=$((health_score + 20))
+    [ "${PROJECT_INFO[$key,has_taskmaster]:-false}" = "true" ] && health_score=$((health_score + 10))
+    [ "${PROJECT_INFO[$key,has_superclaude]:-false}" = "true" ] && health_score=$((health_score + 10))
     [ -d "$project_dir/.git" ] && health_score=$((health_score + 10))
     
     PROJECT_HEALTH["$project_dir,score"]=$health_score
