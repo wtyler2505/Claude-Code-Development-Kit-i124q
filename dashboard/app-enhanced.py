@@ -134,7 +134,7 @@ class EnhancedAnalytics:
         for key, dashboard in dashboards.items():
             try:
                 import requests
-                response = requests.get(f'http://localhost:{dashboard["port"]}', timeout=2)
+                response = requests.get(f'http://localhost:{dashboard["port"]}', timeout=1)
                 health_status[key] = {
                     'status': 'healthy' if response.status_code == 200 else 'unhealthy',
                     'port': dashboard['port'],
