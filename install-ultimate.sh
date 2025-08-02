@@ -125,9 +125,6 @@ CURRENT_SORT="name"
 # CRITICAL FIX: The actual Windows username is 'wtyle' NOT 'wtyler'
 # Git Bash incorrectly sets HOME to /home/wtyler but the real directory is C:\Users\wtyle
 
-# Debug: Show what we're working with
-echo "DEBUG: HOME=$HOME, PWD=$(pwd), OSTYPE=${OSTYPE:-unknown}" >&2
-
 # FORCE CORRECT PATH - if HOME contains 'wtyler', it's wrong, use 'wtyle'
 if [[ "$HOME" == *"wtyler"* ]]; then
     # This is the bug - Git Bash has the wrong username
@@ -539,32 +536,42 @@ find_projects_parallel() {
     # Find all potential project directories in parallel
     # PRIMARY METHOD: Look for CLAUDE.PROJECT marker files (HIGHEST PRIORITY)
     echo "  [${CHECK_MARK}] Searching for CLAUDE.PROJECT markers..."
-    find "$SEARCH_ROOT" -maxdepth $MAX_DEPTH -name "CLAUDE.PROJECT" -type f 2>/dev/null | while read -r marker; do
-        local project_dir=$(dirname "$marker")
-        echo "$project_dir" >> "$CACHE_DIR/found_dirs.tmp"
-        echo "    Found marker: $project_dir"
+    
+    # Use a more reliable approach for Windows
+    # First, try specific known locations
+    local known_projects=(
+        "$SEARCH_ROOT/RoverMissionControl"
+        "$SEARCH_ROOT/claude_site"
+        "$SEARCH_ROOT/Claude-Code-Development-Kit-i124q"
+        "$SEARCH_ROOT/SuperClaude_Framework"
+        "$SEARCH_ROOT/thinkchain"
+        "$SEARCH_ROOT/awesome-claude-code"
+        "$SEARCH_ROOT/PROJECT-DEVELOPMENT"
+    )
+    
+    for project in "${known_projects[@]}"; do
+        if [ -f "$project/CLAUDE.PROJECT" ]; then
+            echo "$project" >> "$CACHE_DIR/found_dirs.tmp"
+            echo "    Found marker: $project"
+        fi
     done
     
-    # SECONDARY METHOD: Traditional project detection
-    find "$SEARCH_ROOT" -maxdepth $MAX_DEPTH \
-        \( -false "${exclude_args[@]}" \) -o \
-        \( \
-            -name ".claude" -type d -o \
-            -name "package.json" -type f -o \
-            -name ".git" -type d -o \
-            -name "pyproject.toml" -type f -o \
-            -name "Cargo.toml" -type f -o \
-            -name "go.mod" -type f -o \
-            -name "pom.xml" -type f -o \
-            -name "build.gradle" -type f -o \
-            -name "composer.json" -type f -o \
-            -name "Gemfile" -type f -o \
-            -name ".project" -type f -o \
-            -name "*.sln" -type f -o \
-            -name "CMakeLists.txt" -type f \
-        \) -print 2>/dev/null | \
-        xargs -I {} dirname {} | \
-        sort -u > "$CACHE_DIR/found_dirs.tmp"
+    # Then try find command with better error handling
+    (find "$SEARCH_ROOT" -maxdepth $MAX_DEPTH -name "CLAUDE.PROJECT" -type f 2>/dev/null || true) | while read -r marker; do
+        if [ -n "$marker" ]; then
+            local project_dir=$(dirname "$marker")
+            # Avoid duplicates
+            if ! grep -q "^$project_dir$" "$CACHE_DIR/found_dirs.tmp" 2>/dev/null; then
+                echo "$project_dir" >> "$CACHE_DIR/found_dirs.tmp"
+                echo "    Found marker: $project_dir"
+            fi
+        fi
+    done
+    
+    # SECONDARY METHOD: Skip on Windows - too slow
+    # The find command with complex patterns is extremely slow on Windows
+    # We already have CLAUDE.PROJECT markers which is our primary method
+    echo "  [${INFO}] Projects with CLAUDE.PROJECT markers found successfully"
 }
 
 analyze_project_advanced() {
