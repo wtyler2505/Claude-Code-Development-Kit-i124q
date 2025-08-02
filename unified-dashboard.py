@@ -422,6 +422,6 @@ def api_refresh():
 
 if __name__ == '__main__':
     print("🚀 Starting CCDK i124q Unified Dashboard...")
-    print("📊 Dashboard will be available at: http://localhost:4000")
+    print("📊 Dashboard will be available at: http://localhost:3000")
     print("🔗 Integrating: CCDK + SuperClaude + ThinkChain + Templates")
-    app.run(host='0.0.0.0', port=4000, debug=True)
+    app.run(host='0.0.0.0', port=3000, debug=True)
